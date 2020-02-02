@@ -1,0 +1,108 @@
+1. Go to project folder
+2. Assume that , sbt already installed
+3. type sbt
+4. type compile
+5. type run
+
+Then In POSTMAN use following request to create, retrieve and update task
+
+Create:
+URL: http://localhost:9000/ 
+Method: Post
+format: json
+Body: {
+  "name": "mainTask",
+  "startDate": "2019-04-23",
+  "endDate": "2019-04-26",
+  "parentId":null,
+  "parentTask":null,
+  "taskType":0,
+  "childrenTasks": [
+  	{
+  	"name": "subTask1",
+  "startDate": "2019-04-24",
+  "endDate": "2019-04-24",
+  "parentId":null,
+  "parentTask":null,
+  "taskType":1,
+  "rule":2,
+   "childrenTasks": []
+  },	{
+  	"name": "subTask2",
+  "startDate": "2019-04-25",
+  "endDate": "2019-04-25",
+  "parentId":null,
+  "parentTask":null,
+  "taskType":1,
+  "rule":2,
+   "childrenTasks": []
+  }
+  
+  	]
+}
+
+Retrieve Task:
+URL:http://localhost:9000/0
+Method: Get
+In Retrieve , if the task exists, you can get the task and its first level children.
+
+Example OutPut:
+{
+    "isSuccessful": true,
+    "body": {
+        "id": 0,
+        "name": "mainTask",
+        "startDate": "2012-04-23T00:00:00.000+0000",
+        "endDate": "2012-04-26T00:00:00.000+0000",
+        "parentId": null,
+        "taskType": "PARENT",
+        "rule": "AS_SOON_AS_POSSIBLE",
+        "childrenTasks": [
+            {
+                "id": 1,
+                "name": "subTask1",
+                "startDate": "2012-04-24T00:00:00.000+0000",
+                "endDate": "2012-04-24T00:00:00.000+0000",
+                "parentId": 0,
+                "taskType": "CHILD",
+                "rule": "START_NO_EARLIER_THAN",
+                "childrenTasks": []
+            },
+            {
+                "id": 2,
+                "name": "subTask2",
+                "startDate": "2012-04-25T00:00:00.000+0000",
+                "endDate": "2012-04-25T00:00:00.000+0000",
+                "parentId": 0,
+                "taskType": "CHILD",
+                "rule": "START_NO_EARLIER_THAN",
+                "childrenTasks": []
+            }
+        ]
+    }
+}
+
+Update:
+URL: http://localhost:9000/{id}
+Method : Patch
+Example: http://localhost:9000/1
+body: 
+{
+  "id": 1,
+  "startDate": "2012-04-21"
+ }
+
+Response: 
+{
+    "isSuccessful": true,
+    "body": {
+        "id": 1,
+        "name": "subTask1",
+        "startDate": "2012-04-21T00:00:00.000+0000",
+        "endDate": "2012-04-24T00:00:00.000+0000",
+        "parentId": 0,
+        "taskType": "CHILD",
+        "rule": "START_NO_EARLIER_THAN",
+        "childrenTasks": []
+    }
+}
