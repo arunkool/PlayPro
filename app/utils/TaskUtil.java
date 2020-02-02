@@ -41,7 +41,7 @@ public class TaskUtil {
 
 		Task parentTask = new Task();
 		parentTask.setId(idPorvider);
-		getNextval();// need to increment to have unique id
+		getNextId();// need to increment to have unique id
 		parentTask.setName(task.getName());
 		parentTask.setStartDate(task.getStartDate());
 		parentTask.setEndDate(task.getEndDate());
@@ -91,7 +91,7 @@ public class TaskUtil {
 		validateTaskBytaskConstrians(task, parentTask);
 		Task taskFromRequestedTask = new Task();
 		taskFromRequestedTask.setId(idPorvider);
-		getNextval();
+		getNextId();
 		taskFromRequestedTask.setName(task.getName());
 		taskFromRequestedTask.setStartDate(task.getStartDate());
 		taskFromRequestedTask.setEndDate(task.getEndDate());
@@ -108,7 +108,7 @@ public class TaskUtil {
 		}
 	}
 
-	private void getNextval() {
+	private void getNextId() {
 		idPorvider += 1;
 	}
 
